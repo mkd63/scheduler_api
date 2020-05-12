@@ -6,18 +6,19 @@ import datetime
 class RecordsSerializer(serializers.ModelSerializer):
 
     class Meta:
-        model = Education
-        fields = ('id', 'event_dateTime', 'event_agenda', 'user')
+        model = Records
+        fields = ('id', 'event_date', 'event_agenda', 'user')
 
-     def create(self, validated_data):
-
+    def create(self, validated_data):
+        if validated_data["event_date"] < datetime.date.today():
+            print(validated_data["event_date"])
+            raise ValueError("Date must be higher than current date time")
         # Save request
-        request = models.Request(
-            event_=validated_data["desc"],
-            date_need=validated_data["date_need"],
-            date_borrow=validated_data["date_borrow"],
-            community=validated_data["community"],
-            requester=validated_data["requester"],
+        record = models.Records(
+        event_date=validated_data["event_date"],
+        event_agenda=validated_data["event_agenda"],
+        user=validated_data["user"]
         )
 
-        request.save()
+        record.save()
+        return record
