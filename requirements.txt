@@ -8,6 +8,7 @@ djangorestframework-jwt==1.11.0
 Pillow==7.1.2
 psycopg2==2.8.5
 PyJWT==1.7.1
+python-decouple==3.3
 pytz==2020.1
 six==1.14.0
 sqlparse==0.3.1
